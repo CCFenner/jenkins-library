@@ -14,17 +14,17 @@ jobs:
       #
     - name: setup-coverage
       run: |
-        curl -L --output cc-test-reporter https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
-        chmod +x ./cc-test-reporter
-        ./cc-test-reporter before-build
+        curl -L --output code-climate https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+        chmod +x ./code-climate
+        ./code-climate before-build
     - name: unit-test
       run: go test ./... -coverprofile cover.out 
     - name: report-coverage
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_REPORTER_ID }}
       run: |
-        ./cc-test-reporter format-coverage cover.out --input-type gocov --prefix github.com/SAP/jenkins-library/
-        ./cc-test-reporter upload-coverage
+        ./code-climate format-coverage cover.out --input-type gocov --prefix github.com/SAP/jenkins-library/
+        ./code-climate upload-coverage
   format:
     runs-on: ubuntu-latest
     steps:
