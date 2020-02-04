@@ -20,4 +20,4 @@ jobs:
       with:
         coverageCommand: |
           mvn --batch-mode clean verify -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
-          ./cc-test-reporter format-coverage target/site/jacoco/jacoco.xml --input-type jacoco
+          ./cc-reporter format-coverage target/site/jacoco/jacoco.xml --input-type jacoco
