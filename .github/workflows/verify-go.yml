@@ -17,7 +17,7 @@ jobs:
         chmod +x ./code-climate
         ./code-climate before-build
     - name: unit-test
-      run: gocov test -coverprofile=cover.out 
+      run: go test ./... -coverprofile cover.out 
     - name: report-coverage
       run: |
         ./code-climate format-coverage cover.out --input-type gocov
