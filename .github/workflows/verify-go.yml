@@ -21,7 +21,7 @@ jobs:
       run: go test ./... -coverprofile cover.out 
     - name: report-coverage
       run: |
-        ./cc-test-reporter format-coverage cover.out --input-type gocov
+        ./cc-test-reporter format-coverage cover.out --input-type gocov --prefix github.com/SAP/jenkins-library/
         ./cc-test-reporter upload-coverage
   format:
     runs-on: ubuntu-latest
