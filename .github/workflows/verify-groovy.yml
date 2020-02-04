@@ -16,5 +16,8 @@ jobs:
       uses: paambaati/codeclimate-action@v2.4.0
       env:
         CC_TEST_REPORTER_ID: ${{secrets.CODE_CLIMATE_REPORTER_ID}}
+        JACOCO_SOURCE_PATH: "src vars test"
       with:
-        coverageCommand: mvn --batch-mode clean verify -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+        coverageCommand: |
+          mvn --batch-mode clean verify -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+          ./cc-test-reporter format-coverage target/site/jacoco/jacoco.xml --input-type jacoco
