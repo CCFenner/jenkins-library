@@ -20,6 +20,8 @@ jobs:
     - name: unit-test
       run: go test ./... -coverprofile cover.out 
     - name: report-coverage
+      env:
+        CC_TEST_REPORTER_ID: ${{secret.CODE_CLIMATE_REPORTER_ID}}
       run: |
         ./cc-test-reporter format-coverage cover.out --input-type gocov --prefix github.com/SAP/jenkins-library/
         ./cc-test-reporter upload-coverage
