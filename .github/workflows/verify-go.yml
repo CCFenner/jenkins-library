@@ -11,8 +11,17 @@ jobs:
         go-version: '1.13.x'
     - name: dummy-change
       uses: actions/checkout@v2
+    - name: setup-coverage
+      run: |
+        curl -L --output code-climate https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+        chmod +x ./code-climate
+        ./code-climate before-build
     - name: unit-test
-      run: go test ./... --cover
+      run: gocov test -coverprofile=cover.out 
+    - name: report-coverage
+      run: |
+        ./code-climate format-coverage cover.out --input-type gocov
+        ./code-climate upload-coverage
   format:
     runs-on: ubuntu-latest
     steps:
