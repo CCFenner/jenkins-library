@@ -49,3 +49,20 @@ jobs:
       run: go mod tidy
     - name: verify
       run: git diff --name-only --exit-code
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-go@v1
+      with:
+        go-version: '1.13.x'
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: build
+      env:
+        CGO_ENABLED: 0
+      run: go build -o piper
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: executable
+        path: ./piper
