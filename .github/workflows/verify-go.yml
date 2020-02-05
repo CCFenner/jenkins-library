@@ -12,7 +12,7 @@ jobs:
     - name: dummy-change
       uses: actions/checkout@v2
     - name: unit-test
-      run: go test ./... --cover
+      run: go test ./... -coverprofile cover.out
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       env:
