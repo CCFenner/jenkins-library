@@ -9,6 +9,9 @@ jobs:
     - uses: actions/setup-go@v1
       with:
         go-version: '1.13.x'
+    - uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
     - uses: actions/checkout@v2
     - name: pull
       run: docker pull squidfunk/mkdocs-material:3.0.4
