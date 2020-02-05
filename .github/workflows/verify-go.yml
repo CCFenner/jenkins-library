@@ -6,7 +6,7 @@ jobs:
   unit:
     runs-on: ubuntu-latest
     steps:
-    - run: echo ${{GITHUB_REF}}
+    - run: echo ${GITHUB_REF}
     - uses: actions/setup-go@v1
       with:
         go-version: '1.13.x'
