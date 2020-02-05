@@ -1,0 +1,14 @@
+name: Go
+
+on: [push]
+
+jobs:
+  integration:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v1.0.0
+      with:
+        name: executable
+    - run: ./piper version --noTelemetry
