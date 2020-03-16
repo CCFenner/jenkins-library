@@ -15,3 +15,5 @@ jobs:
           npm install semver --quiet
           echo "::set-env name=PIPER_version::v$(node_modules/.bin/semver -i minor $(curl --silent "https://api.github.com/repos/$GITHUB_REPOSITORY/releases/latest" | jq -r .tag_name))"
       - run: printenv
+        env: 
+          PIPER_version: $(curl --silent "https://api.github.com/repos/$GITHUB_REPOSITORY/releases/latest" | jq -r .tag_name)
