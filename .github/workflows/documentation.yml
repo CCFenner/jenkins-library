@@ -6,11 +6,43 @@ on:
     - master
 
 jobs:
-  build:
+  github-pages:
     runs-on: ubuntu-latest
     steps:
+
     - uses: actions/checkout@v2
+
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '11'
+
+    - name: Install Groovy
+      run: sudo apt-get update && sudo apt-get install groovy -y
+
+#    - name: Create ClassPath File
+#      env:
+#        MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+#        CLASSPATH_FILE: target/cp.txt
+#      run: mvn clean test dependency:build-classpath -Dmdep.outputFile=${CLASSPATH_FILE}
+
+      #install: docker pull squidfunk/mkdocs-material:3.0.4
+
+    - name: Generate Groovy Docs
+      run: documentation/bin/createDocu.sh
+
+#    - name: Generate Golang Docs
+#      run: docker run -u `id -u`:`id -g` --rm -it -e GOCACHE=/tmp -v ${TRAVIS_BUILD_DIR}:/docu-gen golang sh -c "cd /docu-gen && go get github.com/SAP/jenkins-library/... && go run /docu-gen/pkg/generator/step-metadata.go --docuDir=/docu-gen/documentation/docs/steps/ --docuGen=true "
+
+#    - name: MKDocs build
+#      run: docker run -u `id -u`:`id -g` --rm -it -v ${TRAVIS_BUILD_DIR}/documentation:/docs squidfunk/mkdocs-material:3.0.4 build --clean --strict
+
+#    - name: unknown
+#      run: |
+#        mkdir -p documentation/docs-gen/misc
+#        cp target/docuMetaData.json documentation/docs-gen/misc
+
     - name: Deploy
+      #if: we are on master branch
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
