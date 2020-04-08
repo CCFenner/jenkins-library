@@ -66,3 +66,4 @@ jobs:
         user_name: 'project-piper[bot]'
         user_email: 'project-piper[bot]@users.noreply.github.com'
         keep_files: true
+        force_orphan: true
