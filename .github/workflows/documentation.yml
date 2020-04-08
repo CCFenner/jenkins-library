@@ -34,8 +34,16 @@ jobs:
     - name: Generate Golang Docs
       run: go run pkg/generator/step-metadata.go --docuDir=documentation/docs/steps/ --docuGen=true
       
-#    - name: MKDocs build
-#      run: docker run -u `id -u`:`id -g` --rm -it -v ${TRAVIS_BUILD_DIR}/documentation:/docs squidfunk/mkdocs-material:3.0.4 build --clean --strict
+    - name: Install MKDocs Dependencies
+      # fetched from https://github.com/squidfunk/mkdocs-material/blob/3.0.4/requirements.txt
+      run: |
+        python3 -m pip install \
+          "mkdocs==1.0.3" \
+          "Pygments==2.2.0" \
+          "pymdown-extensions==5.0"
+
+    - name: Build
+      run: mkdocs build --clean --strict --site-dir documentation/docs-gen --config-file documentation/mkdocs.yml
 
 #    - name: unknown
 #      run: |
