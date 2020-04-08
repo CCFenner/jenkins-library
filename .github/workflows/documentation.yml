@@ -58,6 +58,7 @@ jobs:
 #        cp target/docuMetaData.json documentation/docs-gen/misc
 
     - name: Deploy
+      if: true == false
       #if: we are on master branch
       uses: peaceiris/actions-gh-pages@v3
       with:
