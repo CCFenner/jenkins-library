@@ -45,7 +45,8 @@ jobs:
         python3 -m pip install \
           "mkdocs==1.0.3" \
           "Pygments==2.2.0" \
-          "pymdown-extensions==5.0"
+          "pymdown-extensions==5.0" \
+          "mkdocs-material==3.0.4"
 
     - name: Build
       run: mkdocs build --clean --strict --site-dir documentation/docs-gen --config-file documentation/mkdocs.yml
