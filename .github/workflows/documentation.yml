@@ -25,16 +25,16 @@ jobs:
         python-version: '3.6'
         architecture: 'x64'
 
-#    - name: Install Groovy
-#      run: sudo apt-get update && sudo apt-get install groovy -y
+    - name: Install Groovy
+      run: sudo apt-get update && sudo apt-get install groovy -y
 
 #    - name: Create ClassPath File
 #      env:
 #        MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
 #      run: mvn dependency:build-classpath -Dmdep.outputFile=target/classpath
 
-#    - name: Generate Groovy Docs
-#      run: documentation/bin/createDocu.sh
+    - name: Generate Groovy Docs
+      run: documentation/bin/createDocu.sh
 
     - name: Generate Golang Docs
       run: go run pkg/generator/step-metadata.go --docuDir=documentation/docs/steps/ --docuGen=true
