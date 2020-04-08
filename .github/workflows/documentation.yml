@@ -28,10 +28,10 @@ jobs:
 #    - name: Install Groovy
 #      run: sudo apt-get update && sudo apt-get install groovy -y
 
-    - name: Create ClassPath File
-      env:
-        MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
-      run: mvn dependency:build-classpath -Dmdep.outputFile=target/classpath
+#    - name: Create ClassPath File
+#      env:
+#        MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+#      run: mvn dependency:build-classpath -Dmdep.outputFile=target/classpath
 
 #    - name: Generate Groovy Docs
 #      run: documentation/bin/createDocu.sh
@@ -44,9 +44,10 @@ jobs:
       run: |
         python3 -m pip install \
           "mkdocs==1.0.3" \
+          "mkdocs-material==3.0.4" \
+          "Markdown==2.6.11" \
           "Pygments==2.2.0" \
-          "pymdown-extensions==5.0" \
-          "mkdocs-material==3.0.4"
+          "pymdown-extensions==5.0"
 
     - name: Build
       run: mkdocs build --clean --strict --site-dir documentation/docs-gen --config-file documentation/mkdocs.yml
