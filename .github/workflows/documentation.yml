@@ -62,8 +62,7 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./documentation/docs
-        #publish_dir: ./documentation/docs-gen
+        publish_dir: ./documentation/docs-gen
         user_name: 'project-piper[bot]'
         user_email: 'project-piper[bot]@users.noreply.github.com'
         keep_files: true
