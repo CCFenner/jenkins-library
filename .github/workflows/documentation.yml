@@ -16,23 +16,22 @@ jobs:
       with:
         java-version: '11'
 
-    - name: Install Groovy
-      run: sudo apt-get update && sudo apt-get install groovy -y
+    - uses: actions/setup-go@v1
+      with:
+        go-version: '1.13.x'
 
-#    - name: Create ClassPath File
-#      env:
-#        MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
-#        CLASSPATH_FILE: target/cp.txt
-#      run: mvn clean test dependency:build-classpath -Dmdep.outputFile=${CLASSPATH_FILE}
+#    - name: Install Groovy
+#      run: sudo apt-get update && sudo apt-get install groovy -y
 
-      #install: docker pull squidfunk/mkdocs-material:3.0.4
+    - name: Create ClassPath File
+      run: mvn dependency:build-classpath -Dmdep.outputFile=target/classpath
 
-    - name: Generate Groovy Docs
-      run: documentation/bin/createDocu.sh
+#    - name: Generate Groovy Docs
+#      run: documentation/bin/createDocu.sh
 
-#    - name: Generate Golang Docs
-#      run: docker run -u `id -u`:`id -g` --rm -it -e GOCACHE=/tmp -v ${TRAVIS_BUILD_DIR}:/docu-gen golang sh -c "cd /docu-gen && go get github.com/SAP/jenkins-library/... && go run /docu-gen/pkg/generator/step-metadata.go --docuDir=/docu-gen/documentation/docs/steps/ --docuGen=true "
-
+    - name: Generate Golang Docs
+      run: go run pkg/generator/step-metadata.go --docuDir=documentation/docs/steps/ --docuGen=true
+      
 #    - name: MKDocs build
 #      run: docker run -u `id -u`:`id -g` --rm -it -v ${TRAVIS_BUILD_DIR}/documentation:/docs squidfunk/mkdocs-material:3.0.4 build --clean --strict
 
