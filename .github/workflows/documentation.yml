@@ -50,7 +50,7 @@ jobs:
           "pymdown-extensions==5.0"
 
     - name: Build
-      run: mkdocs build --clean --strict --site-dir documentation/docs-gen --config-file documentation/mkdocs.yml
+      run: mkdocs build --clean --strict --site-dir docs-gen --config-file documentation/mkdocs.yml
 
 #    - name: unknown
 #      run: |
