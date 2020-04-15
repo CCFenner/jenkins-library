@@ -24,7 +24,7 @@ jobs:
     - name: Install Groovy
       run: sudo apt-get update && sudo apt-get install groovy -y
 
-    - run: ppiper/jenkinsfile-runner:latest
+    - run: docker pull ppiper/jenkinsfile-runner:latest
 
     - name: Generate Groovy Docs
       env:
