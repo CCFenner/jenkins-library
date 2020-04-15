@@ -16,53 +16,64 @@ jobs:
       with:
         java-version: '1.8'
 
-    - uses: actions/setup-go@v1
-      with:
-        go-version: '1.13.x'
-
-    - uses: actions/setup-python@v1
-      with:
-        python-version: '3.6'
-        architecture: 'x64'
+#    - name: Create ClassPath File and Run Tests
+#      env:
+#        MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+#      run: mvn --batch-mode --show-version clean test dependency:build-classpath -Dmdep.outputFile=cp.txt
 
     - name: Install Groovy
       run: sudo apt-get update && sudo apt-get install groovy -y
-
-    - name: Create ClassPath File and Run Tests
-      env:
-        MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
-      run: mvn --batch-mode --show-version clean test dependency:build-classpath -Dmdep.outputFile=cp.txt
-
-#      run: mvn dependency:build-classpath -Dmdep.outputFile=target/classpath
 
     - name: Generate Groovy Docs
       env:
         MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
       run: documentation/bin/createDocu.sh
 
+    - uses: actions/setup-go@v1
+      with:
+        go-version: '1.13.x'
+
     - name: Generate Golang Docs
       run: go run pkg/generator/step-metadata.go --docuDir=documentation/docs/steps/ --docuGen=true
-      
-    - name: Install MKDocs Dependencies
-      # fetched from https://github.com/squidfunk/mkdocs-material/blob/3.0.4/requirements.txt
-      run: |
-        python3 -m pip install \
-          "mkdocs==1.0.3" \
-          "mkdocs-material==3.0.4" \
-          "Markdown==2.6.11" \
-          "Pygments==2.2.0" \
-          "pymdown-extensions==5.0"
+
+#    - uses: actions/setup-python@v1
+#      with:
+#        python-version: '3.6'
+#        architecture: 'x64'
+
+    - run: docker pull squidfunk/mkdocs-material:3.0.4
 
     - name: Build
-      run: mkdocs build --clean --strict --site-dir docs-gen --config-file documentation/mkdocs.yml
+      run: |
+        docker run \
+          -u $(id -u):$(id -g) \
+          --rm \
+          -it \
+          -v ${GITHUB_WORKSPACE}/documentation:/docs \
+          squidfunk/mkdocs-material:3.0.4 build --clean --strict
 
-#    - name: unknown
+#    - name: Install MKDocs Dependencies
+#      # fetched from https://github.com/squidfunk/mkdocs-material/blob/3.0.4/requirements.txt
 #      run: |
-#        mkdir -p documentation/docs-gen/misc
-#        cp target/docuMetaData.json documentation/docs-gen/misc
+#        python3 -m pip install \
+#          "mkdocs==1.0.3" \
+#          "mkdocs-material==3.0.4" \
+#          "Markdown==2.6.11" \
+#          "Pygments==2.2.0" \
+#          "pymdown-extensions==5.0"
+#
+#    - name: Build
+#      run: mkdocs build --clean --strict --site-dir docs-gen --config-file documentation/mkdocs.yml
+
+    - name: Provide Docs Metadata
+      run: |
+        mkdir -p documentation/docs-gen/misc
+        cp target/docuMetaData.json documentation/docs-gen/misc
+        echo "Current Branch Name {{github.ref}}
 
     - name: Deploy
-      if: true == false
+      if: true == true
+      #if: github.ref == master
       #if: we are on master branch
       uses: peaceiris/actions-gh-pages@v3
       with:
