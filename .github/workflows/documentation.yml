@@ -29,18 +29,13 @@ jobs:
 #        MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
 #      run: mvn --batch-mode --show-version clean test dependency:build-classpath -Dmdep.outputFile=cp.txt
 
-# TODO: use caching for -m2 directory
-#    - name: Cache node modules
-#      uses: actions/cache@v1
-#      env:
-#        cache-name: cache-node-modules
-#      with:
-#        path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-#        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-#        restore-keys: |
-#          ${{ runner.os }}-build-${{ env.cache-name }}-
-#          ${{ runner.os }}-build-
-#          ${{ runner.os }}-
+    - name: Cache Maven Packages
+      uses: actions/cache@v1
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
 
     - run: docker pull ppiper/jenkinsfile-runner:latest
 
