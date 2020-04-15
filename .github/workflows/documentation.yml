@@ -31,7 +31,7 @@ jobs:
     - name: Create ClassPath File and Run Tests
       env:
         MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
-      run: mvn --batch clean test dependency:build-classpath -Dmdep.outputFile=cp.txt
+      run: mvn --batch-mode --show-version clean test dependency:build-classpath -Dmdep.outputFile=cp.txt
 
 #      run: mvn dependency:build-classpath -Dmdep.outputFile=target/classpath
 
