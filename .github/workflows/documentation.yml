@@ -28,12 +28,16 @@ jobs:
     - name: Install Groovy
       run: sudo apt-get update && sudo apt-get install groovy -y
 
-#    - name: Create ClassPath File
-#      env:
-#        MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+    - name: Create ClassPath File and Run Tests
+      env:
+        MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+      run: mvn --batch clean test dependency:build-classpath -Dmdep.outputFile=cp.txt
+
 #      run: mvn dependency:build-classpath -Dmdep.outputFile=target/classpath
 
     - name: Generate Groovy Docs
+      env:
+        MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
       run: documentation/bin/createDocu.sh
 
     - name: Generate Golang Docs
