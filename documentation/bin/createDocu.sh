@@ -17,9 +17,9 @@ do
     [ -e "${f}" ] && rm -rf "${f}"
 done
 
-export CLASSPATH_FILE='cp.txt'
+export CLASSPATH_FILE='target/cp.txt'
 
-ls -la target
+mvn --batch-mode --show-version clean test dependency:build-classpath -Dmdep.outputFile=${CLASSPATH_FILE}
 
 # --in: is created by the unit tests. It contains a mapping between the test case (name is
 # already adjusted).
