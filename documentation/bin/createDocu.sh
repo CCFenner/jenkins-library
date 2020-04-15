@@ -17,8 +17,7 @@ do
     [ -e "${f}" ] && rm -rf "${f}"
 done
 
-export CLASSPATH_FILE='target/cp.txt'
-mvn clean test dependency:build-classpath -Dmdep.outputFile=${CLASSPATH_FILE}
+export CLASSPATH_FILE='cp.txt'
 
 ls -la target
 
