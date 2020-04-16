@@ -12,7 +12,12 @@ jobs:
     - name: dummy-change
       uses: actions/checkout@v2
     - name: unit-test
-      run: go test ./... --cover
+      run: go test ./... -coverprofile cover.out
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   format:
     runs-on: ubuntu-latest
     steps:
@@ -49,3 +54,29 @@ jobs:
       run: go mod tidy
     - name: verify
       run: git diff --name-only --exit-code
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-go@v1
+      with:
+        go-version: '1.13.x'
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: build
+      env:
+        CGO_ENABLED: 0
+      run: go build -o piper
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: executable
+        path: ./piper
+  use:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v1.0.0
+      with:
+        name: executable
+    - run: ./piper version --noTelemetry
