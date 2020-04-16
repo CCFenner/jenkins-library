@@ -67,7 +67,7 @@ jobs:
 
     - name: Deploy
       #if: true == true
-      if: github.ref == 'master2'
+      if: github.ref == 'master'
       #if: we are on master branch
       uses: peaceiris/actions-gh-pages@v3
       with:
