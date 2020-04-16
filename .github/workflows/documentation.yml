@@ -74,7 +74,7 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./documentation/docs-gen
-        user_name: 'project-piper[bot]'
-        user_email: 'project-piper[bot]@users.noreply.github.com'
+        user_name: 'github-actions[bot]'
+        user_email: '41898282+github-actions[bot]@users.noreply.github.com'
         keep_files: true
         force_orphan: true
