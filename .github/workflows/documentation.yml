@@ -24,11 +24,6 @@ jobs:
     - name: Install Groovy
       run: sudo apt-get update && sudo apt-get install groovy -y
 
-#    - name: Create ClassPath File and Run Tests
-#      env:
-#        MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
-#      run: mvn --batch-mode --show-version clean test dependency:build-classpath -Dmdep.outputFile=cp.txt
-
     - name: Cache Maven Packages
       uses: actions/cache@v1
       with:
