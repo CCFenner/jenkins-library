@@ -1,0 +1,36 @@
+name: Docs
+
+on: [push]
+
+jobs:
+  documentation:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-go@v1
+      with:
+        go-version: '1.13.x'
+    - uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - uses: actions/checkout@v2
+    - name: pull
+      run: docker pull squidfunk/mkdocs-material:3.0.4
+    - name: generate-go
+      run: |
+        go get github.com/SAP/jenkins-library/... 
+        go run pkg/generator/step-metadata.go --docuDir=documentation/docs/steps/ --docuGen=true 
+    - name: generate-groovy
+      run: |
+        documentation/bin/createDocu.sh
+    - name: build
+      run: |
+        docker run -u `id -u`:`id -g` --rm -it -v ${TRAVIS_BUILD_DIR}/documentation:/docs squidfunk/mkdocs-material:3.0.4 build --clean --strict
+        mkdir -p documentation/docs-gen/misc
+        cp target/docuMetaData.json documentation/docs-gen/misc
+#    - name: deploy
+#      if: 
+#      uses: crazy-max/ghaction-github-pages@v1.2.5
+#      with:
+#        keep_history: true
+#        build_dir: 'documentation/docs-gen'       
+      
