@@ -9,7 +9,7 @@ on:
     - master
 
 jobs:
-  github-pages:
+  Build:
     runs-on: ubuntu-latest
     steps:
 
@@ -66,10 +66,26 @@ jobs:
       run: |
         mkdir -p documentation/docs-gen/misc
         cp target/docuMetaData.json documentation/docs-gen/misc
-        echo "Current Branch Name {{github.ref}}"
+
+    - name: Upload Build Artifacts
+      if: github.ref == 'refs/heads/master'
+      uses: actions/upload-artifact@v1
+      with:
+        name: docs
+        path: .
+
+  Deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    needs: Build
+    steps:
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v1
+      with:
+        name: docs
 
     - name: Deploy
-      if: github.ref == 'refs/heads/master'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
