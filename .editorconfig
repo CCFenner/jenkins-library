@@ -21,7 +21,7 @@ indent_style = none
 indent_size = none
 [cfg/id_rsa.enc]
 indent_style = none
-indent_size = none
+indent_size = nonedummy
 [{go.mod,go.sum,*.go,*.golden}]
 indent_style = tab
 indent_size = 8
