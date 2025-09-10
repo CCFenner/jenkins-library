@@ -117,7 +117,7 @@
             "customType": "regex",
             "matchStringsStrategy": "any",
             "managerFilePatterns": [
-                "/resources/metadata/pythonBuild.yaml"
+                "resources/metadata/pythonBuild.yaml"
             ],
             "matchStrings": [
                 "image: (?<depName>python):(?<currentValue>.*)"
