@@ -103,7 +103,7 @@
             <plugin>
                 <groupId>com.sap.cloud.sdk.plugins</groupId>
                 <artifactId>usage-analytics-maven-plugin</artifactId>
-                <version>3.22.0</version>
+                <version>3.78.0</version>
                 <executions>
                     <execution>
                         <goals>
