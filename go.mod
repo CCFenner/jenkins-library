@@ -60,7 +60,7 @@ require (
 	golang.org/x/oauth2 v0.30.0
 	golang.org/x/text v0.24.0
 	google.golang.org/api v0.232.0
-	gopkg.in/ini.v1 v1.67.1
+	gopkg.in/ini.v1 v1.67.3
 	gopkg.in/yaml.v2 v2.4.0
 	gopkg.in/yaml.v3 v3.0.1
 	helm.sh/helm/v3 v3.17.3
