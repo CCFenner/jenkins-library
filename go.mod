@@ -28,7 +28,7 @@ require (
 	github.com/go-git/go-git/v5 v5.13.0
 	github.com/go-openapi/runtime v0.24.1
 	github.com/go-openapi/strfmt v0.21.3
-	github.com/go-playground/locales v0.14.1
+	github.com/go-playground/locales v0.14.2
 	github.com/go-playground/universal-translator v0.18.1
 	github.com/go-playground/validator/v10 v10.14.1
 	github.com/google/go-cmp v0.7.0
