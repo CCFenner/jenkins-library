@@ -1,6 +1,6 @@
 module github.com/SAP/jenkins-library
 
-go 1.24.0
+go 1.26
 
 replace github.com/imdario/mergo => github.com/imdario/mergo v0.3.16
 
@@ -29,7 +29,7 @@ require (
 	github.com/go-openapi/runtime v0.24.1
 	github.com/go-openapi/strfmt v0.21.3
 	github.com/go-playground/locales v0.14.1
-	github.com/go-playground/universal-translator v0.18.1
+	github.com/go-playground/universal-translator v0.18.2
 	github.com/go-playground/validator/v10 v10.14.1
 	github.com/google/go-cmp v0.7.0
 	github.com/google/go-containerregistry v0.19.0
